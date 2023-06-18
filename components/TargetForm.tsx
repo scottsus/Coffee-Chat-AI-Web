@@ -1,45 +1,35 @@
 'use client';
 
 import { PROD_URL, TEST_URL } from '@/lib/urls';
-import { IFormData } from '@/types/formData';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
 export default function TargetForm() {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    name: '',
-    twitterUrl: '',
-    linkedInUrl: '',
-  });
+  const [url, setUrl] = useState('');
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
+    setUrl(event.target.value);
   };
 
-  const onButtonClick = () => {
-    clearTimeout(
-      setTimeout(() => {
-        setFormData({
-          name: '',
-          twitterUrl: '',
-          linkedInUrl: '',
-        });
-      }, 1000)
-    );
-  };
+  // const onButtonClick = () => {
+  //   console.log(`Submit button`);
+  //   clearTimeout(
+  //     setTimeout(() => {
+  //       setUrl('');
+  //     }, 1000)
+  //   );
+  // };
 
   const onSubmit = (event: React.FormEvent) => {
+    console.log(`Submit!`);
     event.preventDefault();
 
     const formUrl = PROD_URL || TEST_URL + '/formData';
     fetch(formUrl, {
       method: 'POST',
-      body: convertFormData(formData),
+      body: convertFormData(url),
     })
       .then((res) => {
         if (!res.ok) {
@@ -56,54 +46,69 @@ export default function TargetForm() {
 
   return (
     <FormDiv onSubmit={onSubmit}>
-      <Field>
-        <label>Name: </label>
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={onChange}
-        />
-      </Field>
+      <Input
+        type="text"
+        value={url}
+        placeholder="Enter LinkedIn or Twitter Url"
+        onChange={onChange}
+      />
 
-      <Field>
-        <label>Twitter URL: </label>
-        <input
-          type="text"
-          name="twitterUrl"
-          value={formData.twitterUrl}
-          onChange={onChange}
-        />
-      </Field>
-
-      <SubmitButton type="submit" onClick={onButtonClick}>
-        Submit
+      <SubmitButton type="submit">
+        <RightArrow src="images/arrow-right.svg" />
       </SubmitButton>
     </FormDiv>
   );
 }
 
-const convertFormData = (formData: IFormData) => {
+const convertFormData = (url: string) => {
   const nativeFormData = new FormData();
-  nativeFormData.append('name', formData.name);
-  nativeFormData.append('twitterUrl', formData.twitterUrl);
+  nativeFormData.append('url', url);
 
   return nativeFormData;
 };
 
-const FormDiv = styled.main`
-  width: 50%;
-  margin: 20px auto;
-`;
-
-const Field = styled.div`
+const FormDiv = styled.form`
+  margin: 0;
   display: flex;
+  justify-content: space-between;
 `;
 
-const Label = styled.label``;
+const formFont = `
+  font-size: 18px;
+  font-family: Inter;
+  font-weight: 400;
+  color: #AEAEAE;
+`;
 
-const Input = styled.input``;
+const Input = styled.input`
+  width: 740px;
+  height: 80px;
+  background-color: #ffffff;
+  border: 1px solid #aeaeae;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+
+  ${formFont}
+
+  &::placeholder {
+    ${formFont}
+  }
+
+  &:focus {
+    outline: #aeaeae;
+  }
+`;
 
 const SubmitButton = styled.button`
-  background-color: blue;
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  background-color: #ccb494;
+  margin-left: 10px;
+`;
+
+const RightArrow = styled.img`
+  width: 50px;
+  height: 50px;
 `;
