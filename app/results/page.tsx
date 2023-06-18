@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import QuestionsList from './QuestionBank';
 import Navbar from '@/components/Navbar';
 import QuestionBank from './QuestionBank';
+import Footer from '@/components/Footer';
 
 export default function Results() {
   return (

@@ -3,6 +3,7 @@
 import styled from 'styled-components';
 import Navbar from '@/components/Navbar';
 import TargetForm from '@/components/TargetForm';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
           <TargetForm />
         </Body>
       </BodyWrapper>
+      <Footer />
     </HomePage>
   );
 }
