@@ -30,7 +30,7 @@ const Carousell = styled.section`
   height: 200px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   white-space: nowrap;
 `;
@@ -55,7 +55,7 @@ const QuestionBoxDiv = styled.div`
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  margin: 0 20px 40px 0;
+  margin: 0 40px 40px 0;
   padding: 0 20px;
 `;
 

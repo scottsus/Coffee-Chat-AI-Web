@@ -11,7 +11,7 @@ export default function Home() {
       <Navbar />
       <BodyWrapper>
         <Body>
-          <Prompt>☕️ Who are we chatting with?</Prompt>
+          <Prompt>👋 Who are we chatting with?</Prompt>
           <TargetForm />
         </Body>
       </BodyWrapper>

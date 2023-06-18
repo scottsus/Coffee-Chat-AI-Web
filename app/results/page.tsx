@@ -31,7 +31,6 @@ export default function Results() {
 const ResultsDiv = styled.main``;
 
 const MainBody = styled.section`
-  width: 80%;
   margin: 0 auto;
   margin-top: 5%;
 `;
