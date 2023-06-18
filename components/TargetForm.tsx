@@ -22,12 +22,11 @@ export default function TargetForm() {
   //   );
   // };
 
-  const onSubmit = (event: React.FormEvent) => {
-    console.log(`Submit!`);
+  const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     const formUrl = PROD_URL || TEST_URL + '/formData';
-    fetch(formUrl, {
+    const resData = await fetch(formUrl, {
       method: 'POST',
       body: convertFormData(url),
     })
@@ -38,10 +37,11 @@ export default function TargetForm() {
         }
         return res.json();
       })
-      .then((json) => console.log(`Response:`, json))
       .catch((err) => console.log(`Error:`, err));
 
-    router.push('/results');
+    router.push(
+      `/results?data=${encodeURIComponent(resData.questions.join('|||'))}`
+    );
   };
 
   return (
