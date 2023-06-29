@@ -1,6 +1,6 @@
 'use client';
 
-import { PROD_URL, TEST_URL } from '@/lib/urls';
+import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
@@ -16,13 +16,12 @@ export default function QuestionBank() {
     <QuestionBox key={question} question={question} />
   ));
 
-  // const resultsUrl = PROD_URL || TEST_URL + '/query';
-  // useEffect(() => {
-  //   fetch(resultsUrl)
-  //     .then((res) => res.json())
-  //     .then((data) => setQuestionsList(data))
-  //     .catch((err) => console.log(err));
-  // }, []);
+  const rawData = useSearchParams().get('data');
+  useEffect(() => {
+    const questions = rawData?.split('|||');
+    setQuestionsList(questions || []);
+  }, []);
+
   return <Carousell>{questionBank}</Carousell>;
 }
 
@@ -30,8 +29,9 @@ const Carousell = styled.section`
   width: 100%;
   height: 200px;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  overflow-x: auto;
   white-space: nowrap;
 `;
 
@@ -48,19 +48,21 @@ function QuestionBox({ question }: IQuestionBox) {
 }
 
 const QuestionBoxDiv = styled.div`
-  min-width: 320px;
-  height: 175px;
+  width: 350px;
+  height: 100%;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  margin: 0 20px;
+  margin: 0 40px 40px 0;
+  padding: 0 20px;
 `;
 
 const QuestionText = styled.p`
-  font-size: 21px;
+  font-size: 18px;
   font-family: Inter;
   font-weight: 600;
-  margin: auto;
+  width: 300px;
+  white-space: initial;
 `;

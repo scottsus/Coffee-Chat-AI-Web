@@ -10,7 +10,7 @@ export default function Navbar() {
   return (
     <NavbarDiv>
       <Title>
-        <Link href="/">Bean Brief</Link>
+        <Link href="/">☕️</Link>
       </Title>
       <Breadcrumbs>
         <UnderlineAnimation text="Generate" />

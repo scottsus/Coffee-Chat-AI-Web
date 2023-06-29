@@ -4,30 +4,23 @@ import { PROD_URL, TEST_URL } from '@/lib/urls';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
+import { HashLoader } from 'react-spinners';
 
 export default function TargetForm() {
   const router = useRouter();
   const [url, setUrl] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
   };
 
-  // const onButtonClick = () => {
-  //   console.log(`Submit button`);
-  //   clearTimeout(
-  //     setTimeout(() => {
-  //       setUrl('');
-  //     }, 1000)
-  //   );
-  // };
-
-  const onSubmit = (event: React.FormEvent) => {
-    console.log(`Submit!`);
+  const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setIsLoading(true);
 
     const formUrl = PROD_URL || TEST_URL + '/formData';
-    fetch(formUrl, {
+    const resData = await fetch(formUrl, {
       method: 'POST',
       body: convertFormData(url),
     })
@@ -38,10 +31,11 @@ export default function TargetForm() {
         }
         return res.json();
       })
-      .then((json) => console.log(`Response:`, json))
       .catch((err) => console.log(`Error:`, err));
 
-    router.push('/results');
+    router.push(
+      `/results?data=${encodeURIComponent(resData.questions.join('|||'))}`
+    );
   };
 
   return (
@@ -56,6 +50,8 @@ export default function TargetForm() {
       <SubmitButton type="submit">
         <RightArrow src="images/arrow-right.svg" />
       </SubmitButton>
+
+      {isLoading && <HashLoader cssOverride={loaderCss} />}
     </FormDiv>
   );
 }
@@ -112,3 +108,9 @@ const RightArrow = styled.img`
   width: 50px;
   height: 50px;
 `;
+
+const loaderCss = {
+  marginTop: '10px',
+  marginLeft: '20px',
+  borderColor: 'red',
+};

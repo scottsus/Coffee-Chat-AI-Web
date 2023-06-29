@@ -1,10 +1,9 @@
 'use client';
 
 import { styled } from 'styled-components';
-import QuestionsList from './QuestionBank';
 import Navbar from '@/components/Navbar';
 import QuestionBank from './QuestionBank';
-import Footer from '@/components/Footer';
+import EditOnClick from '@/components/EditOnClick';
 
 export default function Results() {
   return (
@@ -14,7 +13,7 @@ export default function Results() {
         <BasicInfo>
           <CirclePicture />
           <NameContainer>
-            <Name>David Sacks</Name>
+            <EditOnClick />
             <Calendar date={new Date()} />
           </NameContainer>
         </BasicInfo>
@@ -22,8 +21,8 @@ export default function Results() {
         <SectionHeader>Some Questions to Ask 🤔</SectionHeader>
         <QuestionBank />
 
-        <SectionHeader>5 Bullet Summaries ⚡️</SectionHeader>
-        <SummaryBox></SummaryBox>
+        {/* <SectionHeader>5 Bullet Summaries ⚡️</SectionHeader>
+        <SummaryBox></SummaryBox> */}
       </MainBody>
     </ResultsDiv>
   );
@@ -32,7 +31,6 @@ export default function Results() {
 const ResultsDiv = styled.main``;
 
 const MainBody = styled.section`
-  width: 60%;
   margin: 0 auto;
   margin-top: 5%;
 `;
@@ -42,7 +40,7 @@ const SectionHeader = styled.h2`
   font-family: Inter;
   font-weight: 600;
   text-align: left;
-  margin: 40px 0 10px 0;
+  margin: 40px 0 20px 0;
 `;
 
 const BasicInfo = styled.div`
