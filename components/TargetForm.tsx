@@ -19,7 +19,7 @@ export default function TargetForm() {
     event.preventDefault();
     setIsLoading(true);
 
-    const formUrl = PROD_URL || TEST_URL + '/formData' +'key=CqNPF-GIsEY';
+    const formUrl = PROD_URL || TEST_URL + '/formData' +'?key=CqNPF-GIsEY';
     const resData = await fetch(formUrl, {
       method: 'POST',
       body: convertFormData(url),
